@@ -1,0 +1,31 @@
+# GraalVM with MicroProfile
+
+This is the codebase with all the demos for the presentation GraalVM and MicroProfile: A Polyglot Microservices
+Solution.
+
+## Samples Structure
+
+* libraries (a fat jar with all the microprofile required implementations to use with GraalVM)
+* number-api (a microservice endpoint in Node that generate an id number)
+
+## Running the Samples
+
+### Setup GraalVM
+
+Please refer to the https://www.graalvm.org/docs/getting-started/#install-graalvm[GraalVM Installation Guide].
+
+### Prepare
+
+Go to the `libraries` folder and run `mvn clean install`. This will build the fat jar with all the required
+microprofile dependencies to use with other languages.
+
+### Run number-api
+
+* Install the required node modules with `npm install left-pad express`
+* Run the microservice with `node --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5000 number-api.js`.
+
+
+[NOTE]
+====
+Make sure that all the commands are run with the binaries from the bin folder inside GraalVM.
+====

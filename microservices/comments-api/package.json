@@ -1,0 +1,24 @@
+{
+  "name": "comments-api",
+  "version": "1.0.0",
+  "description": "REST API for comments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomitribe/graalvm-microprofile.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomitribe/graalvm-microprofile/issues"
+  },
+  "homepage": "https://github.com/tomitribe/graalvm-microprofile#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "sqlite3": "^4.0.2"
+  }
+}

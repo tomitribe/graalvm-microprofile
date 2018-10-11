@@ -6,11 +6,14 @@ Movie comments RESTful Web APIs with Node.js, Express, sqlite and body-parser.
  * [GraalVM](https://www.graalvm.org/downloads/) or
  * [NodeJS](https://nodejs.org/en/)
 
+
 ## Build
-        npm install
+        npm install express
+        npm install body-parser
+        npm install --nodedir=<GraalVMHome>/jre/languages/js --build-from-source sqlite3
 
 ## Run
-        npm start
+        node app.js
 
 It will initialize the server at port 3000.
 

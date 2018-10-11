@@ -1,29 +1,38 @@
-# GraalVM with MicroProfile
+= GraalVM with MicroProfile
 
 This is the codebase with all the demos for the presentation GraalVM and MicroProfile: A Polyglot Microservices
 Solution.
 
-## Samples Structure
+== Samples Structure
 
 * libraries (a fat jar with all the microprofile required implementations to use with GraalVM)
 * number-api (a microservice endpoint in Node that generate an id number)
 
-## Running the Samples
+== Running the Samples
 
-### Setup GraalVM
+=== Setup GraalVM
 
 Please refer to the https://www.graalvm.org/docs/getting-started/#install-graalvm[GraalVM Installation Guide].
 
-### Prepare
+=== Prepare
 
 Go to the `libraries` folder and run `mvn clean install`. This will build the fat jar with all the required
 microprofile dependencies to use with other languages.
 
-### Run number-api
+=== Run number-api with node
 
-* Install the required node modules with `npm install left-pad express`
+* Install the required node modules with `npm install left-pad express`.
 * Run the microservice with `node --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5000 number-api.js`.
 
+=== Run number-api with ruby
+
+* Install the `ruby` language in GraalVM with `gu install ruby`.
+* Make sure that all TruffleRuby https://github.com/oracle/truffleruby/blob/master/README.md#dependencies[dependencies]
+are installed.
+* You may need to run `post_install_hook.sh`. This is provided by the `gu install ruby`. Follow the instructions for
+the command.
+* Install Ruby Sinatra with `gem install sinatra`.
+* Run the microservice with `ruby --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5000 number-api.rb`.
 
 [NOTE]
 ====

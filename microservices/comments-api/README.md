@@ -8,8 +8,7 @@ Movie comments RESTful Web APIs with Node.js, Express, sqlite and body-parser.
 
 
 ## Build
-        npm install express
-        npm install body-parser
+        npm install
         npm install --nodedir=<GraalVMHome>/jre/languages/js --build-from-source sqlite3
 
 ## Run

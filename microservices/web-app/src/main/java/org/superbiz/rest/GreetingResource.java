@@ -16,11 +16,7 @@
  */
 package org.superbiz.rest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Locale;
 
@@ -29,6 +25,8 @@ import java.util.Locale;
 @Consumes(MediaType.APPLICATION_JSON)
 public class GreetingResource {
 
+
+//    @Counted(name = "cesar", absolute = true, monotonic = true)
     @GET
     public String message() {
         return "Hi Microprofile JWT!";

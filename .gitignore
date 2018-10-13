@@ -27,3 +27,5 @@ node_modules
 *.iml
 target
 .history/
+microservices/prometheus/installation/
+microservices/prometheus/data/

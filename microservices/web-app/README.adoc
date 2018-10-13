@@ -25,6 +25,10 @@ docker run --rm -it --name tag -e LICENSE=accept -e CASSANDRA_EMBEDDED=true -p 8
 Once the Tribestream API Gateway is up and running, you can connect to the console with the following URL
 http://localhost:8080/tag/
 
+# Load Tribestream API Gateway configuration
+Once Tribestream API Gateway configuration is up and running, execute the following shell script available in this repository.
+            /src/main/scripts/load-configuration.sh
+
 # Start the movie chat application
 
 Up on start up, the movie application will populate necessary data into the API Gateway.
@@ -32,6 +36,8 @@ Up on start up, the movie application will populate necessary data into the API 
 ```
 mvn clean install -DskipTests tomee:run
 ```
+
+
 
 It should start on port 8181 so it does not clash with the Gateway
 So what you need is to open a browser and navigate to http://localhost:8181/moviefun/

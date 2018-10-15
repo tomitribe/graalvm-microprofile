@@ -1,7 +1,7 @@
 require 'sinatra'
 
 config = Java.type("org.eclipse.microprofile.config.ConfigProvider").getConfig()
-port = config.getOptionalValue("NUMBER_API_PORT", Java.type("java.lang.Integer")).orElse(3000);
+port = config.getOptionalValue("NUMBER_API_PORT", Java.type("java.lang.Integer")).orElse(3001)
 
 set :port, port
 

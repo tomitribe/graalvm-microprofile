@@ -22,7 +22,7 @@ microprofile dependencies to use with other languages.
 === Run number-api with node
 
 * Install the required node modules with `npm install left-pad express`.
-* Run the microservice with `node --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5000 number-api.js`.
+* Run the microservice with `node --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5001 number-api.js`.
 
 === Run number-api with ruby
 
@@ -32,7 +32,7 @@ are installed.
 * You may need to run `post_install_hook.sh`. This is provided by the `gu install ruby`. Follow the instructions for
 the command.
 * Install Ruby Sinatra with `gem install sinatra`.
-* Run the microservice with `ruby --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5000 number-api.rb`.
+* Run the microservice with `ruby --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5001 number-api.rb`.
 
 [NOTE]
 ====

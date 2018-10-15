@@ -64,7 +64,7 @@ public class LoadDataResource {
             comment.setEmail(faker.internet().emailAddress());
             comment.setComment(faker.chuckNorris().fact());
 
-            moviesBean.addCommentToMovie(movie.getId(), comment);
+            //moviesBean.addCommentToMovie(movie.getId(), comment);
         }
     }
 

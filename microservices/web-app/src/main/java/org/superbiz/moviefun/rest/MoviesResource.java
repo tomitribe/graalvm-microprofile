@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.microprofile.jwt.Claim;
 import org.eclipse.microprofile.jwt.ClaimValue;
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.superbiz.moviefun.Comment;
 import org.superbiz.moviefun.Movie;
 import org.superbiz.moviefun.MoviesBean;
@@ -51,11 +52,12 @@ import java.util.logging.Logger;
 @Produces({"application/json"})
 @ApplicationScoped
 public class MoviesResource {
-
     private static final Logger LOGGER = Logger.getLogger(MoviesResource.class.getName());
 
+    @Inject
+    private NumberResource numberResource;
     @EJB
-    private MoviesBean service;
+    private MoviesBean moviesBean;
 
     @Inject
     @Claim("username")
@@ -68,7 +70,6 @@ public class MoviesResource {
     @Inject
     @Claim("jti")
     private ClaimValue<String> jti;
-
 
     @Inject
     @DecryptedValue("creditCard")
@@ -85,9 +86,9 @@ public class MoviesResource {
 
     @GET
     @Path("{id}")
-    public Movie find(@PathParam("id") Long id) {
+    public Movie find(@PathParam("id") String id) {
         LOGGER.info("find: " + toIdentityString());
-        return service.find(id);
+        return moviesBean.find(id);
     }
 
     private String toIdentityString() {
@@ -110,17 +111,19 @@ public class MoviesResource {
     public List<Movie> getMovies(@QueryParam("first") Integer first, @QueryParam("max") Integer max,
                                  @QueryParam("field") String field, @QueryParam("searchTerm") String searchTerm) {
         LOGGER.info("list: " + toIdentityString());
-        return service.getMovies(first, max, field, searchTerm);
+        return moviesBean.getMovies(first, max, field, searchTerm);
     }
 
     @POST
     @Consumes("application/json")
     public Movie addMovie(Movie movie) {
+        movie.setId(numberResource.getNumber());
+
         LOGGER.info("add: " + toIdentityString());
         if (!securityContext.isUserInRole("create")) {
             throw new WebApplicationException("Bad permission.", Response.Status.FORBIDDEN);
         }
-        service.addMovie(movie);
+        moviesBean.addMovie(movie);
         return movie;
     }
 
@@ -142,7 +145,7 @@ public class MoviesResource {
         c.setEmail(email.getValue());
         c.setTimestamp(new Date());
 
-        return service.addCommentToMovie(id, c);
+        return moviesBean.addCommentToMovie(id, c);
     }
 
     @PUT
@@ -153,7 +156,7 @@ public class MoviesResource {
             @PathParam("id") final long id,
             Movie movie) {
         LOGGER.info("edit: " + toIdentityString());
-        service.editMovie(movie);
+        moviesBean.editMovie(movie);
         return movie;
     }
 
@@ -162,7 +165,7 @@ public class MoviesResource {
     @RolesAllowed("delete")
     public void deleteMovie(@PathParam("id") long id) {
         LOGGER.info("delete: " + toIdentityString());
-        service.deleteMovie(id);
+        moviesBean.deleteMovie(id);
     }
 
     @GET
@@ -170,7 +173,6 @@ public class MoviesResource {
     @Produces(MediaType.TEXT_PLAIN)
     public int count(@QueryParam("field") String field, @QueryParam("searchTerm") String searchTerm) {
         LOGGER.info("count: " + toIdentityString());
-        return service.count(field, searchTerm);
+        return moviesBean.count(field, searchTerm);
     }
-
 }

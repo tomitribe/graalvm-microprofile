@@ -42,7 +42,7 @@ public class MoviesBean {
     @PersistenceContext(unitName = "movie-unit")
     private EntityManager entityManager;
 
-    public Movie find(Long id) {
+    public Movie find(String id) {
         return entityManager.find(Movie.class, id);
     }
 

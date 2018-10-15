@@ -73,7 +73,6 @@
         <configuration>
           <tomeeClassifier>microprofile</tomeeClassifier>
           <tomeeHttpPort>8181</tomeeHttpPort>
-          <args>-Xmx512m -XX:PermSize=256m</args>
           <config>${project.basedir}/src/main/tomee/</config>
           <synchronization>
             <updateOnlyExtensions>

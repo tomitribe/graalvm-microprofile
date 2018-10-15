@@ -42,18 +42,13 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String title, String director, String genre, int rating, int year) {
+    public Movie(String id, String title, String director, String genre, int rating, int year) {
+        this.id = id;
         this.director = director;
         this.title = title;
         this.year = year;
         this.genre = genre;
         this.rating = rating;
-    }
-
-    public Movie(String director, String title, int year) {
-        this.director = director;
-        this.title = title;
-        this.year = year;
     }
 
     public String getId() {

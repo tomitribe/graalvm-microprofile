@@ -44,6 +44,7 @@ public class LoadDataResource {
             addComments(
                     moviesBean.addMovie(
                             new Movie(
+                                    "MV-" + (int) Math.floor((Math.random() * 9999999)) + 1,
                                     faker.book().title(),
                                     faker.book().author(),
                                     faker.book().genre(),

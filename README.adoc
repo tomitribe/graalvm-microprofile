@@ -14,27 +14,33 @@ Solution.
 
 Please refer to the https://www.graalvm.org/docs/getting-started/#install-graalvm[GraalVM Installation Guide].
 
-=== Prepare
-
-Go to the `libraries` folder and run `mvn clean install`. This will build the fat jar with all the required
-microprofile dependencies to use with other languages.
-
-=== Run number-api with node
-
-* Install the required node modules with `npm install left-pad express`.
-* Run the microservice with `node --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5001 number-api.js`.
-
-=== Run number-api with ruby
-
+==== Install Ruby
 * Install the `ruby` language in GraalVM with `gu install ruby`.
 * Make sure that all TruffleRuby https://github.com/oracle/truffleruby/blob/master/README.md#dependencies[dependencies]
 are installed.
 * You may need to run `post_install_hook.sh`. This is provided by the `gu install ruby`. Follow the instructions for
 the command.
-* Install Ruby Sinatra with `gem install sinatra`.
-* Run the microservice with `ruby --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5001 number-api.rb`.
+
+=== Prepare
+
+Go to the `libraries` folder and run `mvn clean install`. This will build the fat jar with all the required
+microprofile dependencies to use with other languages.
 
 [NOTE]
 ====
-Make sure that all the commands are run with the binaries from the bin folder inside GraalVM.
+When running node or ruby commands, make sure that you use the the binaries from the bin folder inside GraalVM.
 ====
+
+=== Run number-api with Node
+
+* Install the required node modules with `npm install left-pad express`.
+* Run the microservice with `node --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5001 number-api.js`.
+
+=== Run number-api with Ruby
+
+* Install Ruby Sinatra with `gem install sinatra`.
+* Run the microservice with `ruby --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5002 number-api.rb`.
+
+=== Run number-api-invoker with Ruby
+
+* Run the client invoker with `ruby --jvm --jvm.cp=../number-api-client/target/number-api-client-1.0.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.rb`

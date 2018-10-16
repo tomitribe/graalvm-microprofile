@@ -16,10 +16,15 @@ Please refer to the https://www.graalvm.org/docs/getting-started/#install-graalv
 
 ==== Install Ruby
 * Install the `ruby` language in GraalVM with `gu install ruby`.
+* Rebuild the `ruby` language in GraalVM with `gu rebuild-images ruby`.
 * Make sure that all TruffleRuby https://github.com/oracle/truffleruby/blob/master/README.md#dependencies[dependencies]
 are installed.
 * You may need to run `post_install_hook.sh`. This is provided by the `gu install ruby`. Follow the instructions for
 the command.
+
+==== Install Python
+* Install the `python` language in GraalVM with `gu install python`.
+* Rebuild the `python` language in GraalVM with `gu rebuild-images python`.
 
 === Prepare
 
@@ -44,3 +49,7 @@ When running node or ruby commands, make sure that you use the the binaries from
 === Run number-api-invoker with Ruby
 
 * Run the client invoker with `ruby --jvm --jvm.cp=../number-api-client/target/number-api-client-1.0.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.rb`
+
+=== Run number-api-invoker with Python
+
+* Run the client invoker with `graalpython --jvm --jvm.cp=../number-api-client/target/number-api-client-1.0.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.py`

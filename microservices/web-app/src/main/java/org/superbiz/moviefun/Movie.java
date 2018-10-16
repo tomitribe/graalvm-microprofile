@@ -16,12 +16,10 @@
  */
 package org.superbiz.moviefun;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,8 +34,7 @@ public class Movie {
     private String genre;
     private int rating;
 
-    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     public Movie() {
     }
@@ -99,11 +96,11 @@ public class Movie {
         this.rating = rating;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(final Set<Comment> comments) {
+    public void setComments(final List<Comment> comments) {
         this.comments = comments;
     }
 }

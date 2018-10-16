@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -28,11 +28,6 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Singleton
@@ -61,37 +56,6 @@ public class MoviesBean {
             throw new IllegalArgumentException("Movie " + id + " not found");
         }
         entityManager.remove(movie);
-    }
-
-    public Movie addCommentToMovie(final Long id, final Comment comment) {
-        final Movie movie = entityManager.find(Movie.class, id);
-        if (movie == null) {
-            throw new IllegalArgumentException("Movie " + id + " not found");
-        }
-        entityManager.persist(comment);
-        movie.getComments().add(comment);
-        entityManager.merge(movie);
-
-        //RAW code that sends the comment to the NodeJS rest endpoint.
-        //This can be then migrated to MP Rest Client
-        Client client = ClientBuilder.newClient();
-        Response response = client.target("http://localhost:3000/comments/"+movie.getId())
-                .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(comment));
-        client.close();
-
-        return movie;
-    }
-
-    public Movie removeCommentToMovie(final Long id, final Comment comment) {
-        final Movie movie = entityManager.find(Movie.class, id);
-        if (movie == null) {
-            throw new IllegalArgumentException("Movie " + id + " not found");
-        }
-        movie.getComments().remove(comment);
-        entityManager.remove(comment);
-        entityManager.merge(movie);
-        return movie;
     }
 
     public List<Movie> getMovies(Integer firstResult, Integer maxResults, String field, String searchTerm) {

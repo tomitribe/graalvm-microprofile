@@ -56,6 +56,10 @@ public class MoviesResource {
 
     @Inject
     private NumberResource numberResource;
+    @Inject
+    @RestClient
+    private CommentResourceClient commentResourceClient;
+
     @EJB
     private MoviesBean moviesBean;
 
@@ -88,7 +92,9 @@ public class MoviesResource {
     @Path("{id}")
     public Movie find(@PathParam("id") String id) {
         LOGGER.info("find: " + toIdentityString());
-        return moviesBean.find(id);
+        final Movie movie = moviesBean.find(id);
+        movie.setComments(commentResourceClient.getComments(id));
+        return movie;
     }
 
     private String toIdentityString() {
@@ -111,7 +117,9 @@ public class MoviesResource {
     public List<Movie> getMovies(@QueryParam("first") Integer first, @QueryParam("max") Integer max,
                                  @QueryParam("field") String field, @QueryParam("searchTerm") String searchTerm) {
         LOGGER.info("list: " + toIdentityString());
-        return moviesBean.getMovies(first, max, field, searchTerm);
+        final List<Movie> movies = moviesBean.getMovies(first, max, field, searchTerm);
+        movies.forEach(movie -> movie.setComments(commentResourceClient.getComments(movie.getId())));
+        return movies;
     }
 
     @POST
@@ -131,7 +139,7 @@ public class MoviesResource {
     @Path("{id}/comment")
     @Consumes("text/plain")
     public Movie addCommentToMovie(
-            @PathParam("id") final long id,
+            @PathParam("id") final String id,
             final String comment) {
 
         if (jwtPrincipal == null) {
@@ -145,7 +153,11 @@ public class MoviesResource {
         c.setEmail(email.getValue());
         c.setTimestamp(new Date());
 
-        return moviesBean.addCommentToMovie(id, c);
+        commentResourceClient.createComment(id, c);
+
+        final Movie movie = moviesBean.find(id);
+        movie.setComments(commentResourceClient.getComments(id));
+        return movie;
     }
 
     @PUT

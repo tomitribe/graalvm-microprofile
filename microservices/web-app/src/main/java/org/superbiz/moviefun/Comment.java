@@ -17,11 +17,7 @@
 package org.superbiz.moviefun;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
@@ -29,15 +25,21 @@ import java.util.Date;
 @XmlRootElement(name = "comment")
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private String id;
 
     private String author;
     private String email;
     private String comment;
 
-    @Temporal(value = TemporalType.TIMESTAMP)
     private Date timestamp;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(final String id) {
+        this.id = id;
+    }
 
     public String getAuthor() {
         return author;
@@ -53,14 +55,6 @@ public class Comment {
 
     public void setComment(final String comment) {
         this.comment = comment;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(final long id) {
-        this.id = id;
     }
 
     public Date getTimestamp() {

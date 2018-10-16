@@ -4,7 +4,7 @@ var db = new sqlite3.Database(':memory:');
 // var db = new sqlite3.Database('db.data');
 
 db.serialize(function() {
-    db.run("CREATE TABLE IF NOT EXISTS comment (id INTEGER, author TEXT, comment TEXT, email TEXT, timestamp TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS comment (id TEXT, author TEXT, comment TEXT, email TEXT, timestamp TEXT)");
     // //Commented out for starting the DB with data during startup.
     // db.run("INSERT INTO comment (id, author, comment, email, timestamp) VALUES (?,?,?,?,?)", 1, "Ana Molly","My first comment for movie id 1","ferne.bode@gmail.com","20180805215654-0600");
     // db.run("INSERT INTO comment (id, author, comment, email, timestamp) VALUES (?,?,?,?,?)", 1, "Cyril Walker","My second comment for movie id 1","dolly.schumm@hotmail.com","20180424202248-0600");

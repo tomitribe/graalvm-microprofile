@@ -46,6 +46,12 @@ When running node or ruby commands, make sure that you use the the binaries from
 * Install Ruby Sinatra with `gem install sinatra`.
 * Run the microservice with `ruby --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5002 number-api.rb`.
 
+== Run number-api with Java
+
+* Build the code with `mvn clean install`.
+* Build a native image with `native-image --no-server -jar target/number-api.jar`
+* Run `./number-api`.
+
 === Run number-api-invoker with Ruby
 
 * Run the client invoker with `ruby --jvm --jvm.cp=../number-api-client/target/number-api-client-1.0.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.rb`

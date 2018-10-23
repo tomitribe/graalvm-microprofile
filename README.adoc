@@ -54,11 +54,11 @@ When running node or ruby commands, make sure that you use the the binaries from
 
 === Run number-api-invoker with Ruby
 
-* Run the client invoker with `ruby --jvm --jvm.cp=../number-api-client/target/number-api-client-1.0.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.rb`
+* Run the client invoker with `ruby --jvm --jvm.cp=../number-api-client/target/number-api-client.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.rb`
 
 === Run number-api-invoker with Python
 
-* Run the client invoker with `graalpython --jvm --jvm.cp=../number-api-client/target/number-api-client-1.0.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.py`
+* Run the client invoker with `graalpython --jvm --jvm.cp=../number-api-client/target/number-api-client.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.py`
 
 == Other
 

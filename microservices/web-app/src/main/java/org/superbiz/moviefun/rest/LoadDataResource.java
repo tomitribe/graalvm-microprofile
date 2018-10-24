@@ -26,9 +26,6 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import java.time.temporal.TemporalField;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -66,7 +63,6 @@ public class LoadDataResource {
 
         final Faker faker = new Faker(Locale.ENGLISH);
 
-        List <Comment> commentsList = new ArrayList<>();
 
         for (int i = 0; i < nbComments; i++) {
             final Comment comment = new Comment();

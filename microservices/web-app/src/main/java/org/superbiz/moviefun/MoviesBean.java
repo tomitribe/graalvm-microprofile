@@ -50,7 +50,7 @@ public class MoviesBean {
         entityManager.merge(movie);
     }
 
-    public void deleteMovie(long id) {
+    public void deleteMovie(String id) {
         Movie movie = entityManager.find(Movie.class, id);
         if (movie == null) {
             throw new IllegalArgumentException("Movie " + id + " not found");

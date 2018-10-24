@@ -79,11 +79,7 @@ public class LoadDataResource {
 
             //Send a new comment for the movie to the node js api using mp rest client.
             commentResourceClient.createComment(movie.getId(),comment);
-//            commentsList.add(comment);
-
-            //moviesBean.addCommentToMovie(movie.getId(), comment);
         }
-//        movie.setComments(commentsList);
     }
 
 }

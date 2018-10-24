@@ -17,14 +17,18 @@
 package org.superbiz.moviefun.rest;
 
 import com.github.javafaker.Faker;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.superbiz.moviefun.Comment;
 import org.superbiz.moviefun.Movie;
 import org.superbiz.moviefun.MoviesBean;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import java.time.temporal.TemporalField;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +38,10 @@ public class LoadDataResource {
 
     @EJB
     private MoviesBean moviesBean;
+
+    @Inject
+    @RestClient
+    private CommentResourceClient commentResourceClient;
 
     @POST
     public void load() {
@@ -58,15 +66,24 @@ public class LoadDataResource {
 
         final Faker faker = new Faker(Locale.ENGLISH);
 
+        List <Comment> commentsList = new ArrayList<>();
+
         for (int i = 0; i < nbComments; i++) {
             final Comment comment = new Comment();
             comment.setTimestamp(faker.date().past(300, TimeUnit.DAYS));
             comment.setAuthor(faker.name().fullName());
             comment.setEmail(faker.internet().emailAddress());
             comment.setComment(faker.chuckNorris().fact());
+            comment.setId(movie.getId());
+
+
+            //Send a new comment for the movie to the node js api using mp rest client.
+            commentResourceClient.createComment(movie.getId(),comment);
+//            commentsList.add(comment);
 
             //moviesBean.addCommentToMovie(movie.getId(), comment);
         }
+//        movie.setComments(commentsList);
     }
 
 }

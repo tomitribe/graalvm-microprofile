@@ -164,18 +164,22 @@ public class MoviesResource {
     @Path("{id}")
     @Consumes("application/json")
     @RolesAllowed("update")
-    public Movie editMovie(
-            @PathParam("id") final long id,
-            Movie movie) {
+    public Movie editMovie(@PathParam("id") final String id, final Movie movie) {
         LOGGER.info("edit: " + toIdentityString());
-        moviesBean.editMovie(movie);
+        final Movie original = moviesBean.find(id);
+        original.setTitle(movie.getTitle());
+        original.setDirector(movie.getDirector());
+        original.setGenre(movie.getGenre());
+        original.setYear(movie.getYear());
+        original.setRating(movie.getRating());
+        moviesBean.editMovie(original);
         return movie;
     }
 
     @DELETE
     @Path("{id}")
     @RolesAllowed("delete")
-    public void deleteMovie(@PathParam("id") long id) {
+    public void deleteMovie(@PathParam("id") final String id) {
         LOGGER.info("delete: " + toIdentityString());
         moviesBean.deleteMovie(id);
     }

@@ -29,3 +29,9 @@ target
 .history/
 microservices/prometheus/installation/
 microservices/prometheus/data/
+.idea/
+libraries/
+microservices/web-app/.classpath
+microservices/web-app/.factorypath
+microservices/web-app/.project
+microservices/web-app/.settings/

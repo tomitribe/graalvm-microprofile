@@ -1,0 +1,11 @@
+{
+  "resources":[
+    {"pattern":"META-INF/services/org.eclipse.jetty.http.HttpFieldPreEncoder"}, 
+    {"pattern":"META-INF/services/org.eclipse.microprofile.config.spi.ConfigProviderResolver"}, 
+    {"pattern":"javax/servlet/LocalStrings.properties"}, 
+    {"pattern":"org/eclipse/jetty/http/encoding.properties"}, 
+    {"pattern":"org/eclipse/jetty/http/mime.properties"}, 
+    {"pattern":"org/eclipse/jetty/version/build.properties"}, 
+    {"pattern":"org/slf4j/impl/StaticLoggerBinder.class"}
+  ]
+}

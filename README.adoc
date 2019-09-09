@@ -12,15 +12,12 @@ Solution.
 
 === Setup GraalVM
 
-Please refer to the https://www.graalvm.org/docs/getting-started/#install-graalvm[GraalVM Installation Guide].
+Please refer to the https://www.graalvm.org/docs/getting-started/#install-graalvm[GraalVM Installation Guide]. These
+samples were tested with Graal VM version 19.1.x.
 
 ==== Install Ruby
 * Install the `ruby` language in GraalVM with `gu install ruby`.
 * Rebuild the `ruby` language in GraalVM with `gu rebuild-images ruby`.
-* Make sure that all TruffleRuby https://github.com/oracle/truffleruby/blob/master/README.md#dependencies[dependencies]
-are installed.
-* You may need to run `post_install_hook.sh`. This is provided by the `gu install ruby`. Follow the instructions for
-the command.
 
 ==== Install Python
 * Install the `python` language in GraalVM with `gu install python`.
@@ -36,29 +33,38 @@ microprofile dependencies to use with other languages.
 When running node or ruby commands, make sure that you use the the binaries from the bin folder inside GraalVM.
 ====
 
-=== Run number-api with Node
+=== Number API
+
+==== Run number-api with Node
 
 * Install the required node modules with `npm install left-pad express`.
-* Run the microservice with `node --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5001 number-api.js`.
+* Run the microservice with `node --jvm --vm.cp=../libraries/target/microprofile.jar --vm.DNUMBER_API_PORT=5001 number-api.js`.
 
-=== Run number-api with Ruby
+==== Run number-api with Ruby
 
 * Install Ruby Sinatra with `gem install sinatra`.
-* Run the microservice with `ruby --jvm --jvm.cp=../libraries/target/microprofile.jar --jvm.DNUMBER_API_PORT=5002 number-api.rb`.
+* Run the microservice with `ruby --jvm --vm.cp=../libraries/target/microprofile.jar --vm.DNUMBER_API_PORT=5002 number-api.rb`.
 
-== Run number-api with Java
+==== Run number-api with Java
 
 * Build the code with `mvn clean install`.
-* Build a native image with `native-image --no-server -jar target/number-api.jar`
+* Build a native image with `native-image --no-server --no-fallback --report-unsupported-elements-at-runtime --initialize-at-build-time -H:+ReportExceptionStackTraces -H:+ReportUnsupportedElementsAtRuntime -H:ConfigurationFileDirectories=conf/ -jar target/number-api.jar`
 * Run `./number-api`.
 
-=== Run number-api-invoker with Ruby
+=== Number API Invoker
 
-* Run the client invoker with `ruby --jvm --jvm.cp=../number-api-client/target/number-api-client.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.rb`
+==== Build number-api-client
 
-=== Run number-api-invoker with Python
+Go to the `number-api-client` folder and run `mvn clean install`. This will build the jar with the client code to call
+the number api resource.
 
-* Run the client invoker with `graalpython --jvm --jvm.cp=../number-api-client/target/number-api-client.jar:../libraries/target/microprofile.jar --jvm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.py`
+==== Run number-api-invoker with Ruby
+
+* Run the client invoker with `ruby --jvm --vm.cp=../number-api-client/target/number-api-client.jar:../libraries/target/microprofile.jar --vm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.rb`
+
+==== Run number-api-invoker with Python
+
+* Run the client invoker with `graalpython --jvm --vm.cp=../number-api-client/target/number-api-client.jar:../libraries/target/microprofile.jar --vm.Dorg.tomitribe.graalvm.microprofile.number.api.client.NumberResourceClient/mp-rest/url=http://localhost:5001/number-api/ number-api-invoker.py`
 
 == Other
 

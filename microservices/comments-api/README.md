@@ -16,6 +16,13 @@ Movie comments RESTful Web APIs with Node.js, Express, sqlite and body-parser.
 
 It will initialize the server at port 3000.
 
+---
+**NOTE**
+
+When running node or npm commands, make sure that you use the the binaries from the bin folder inside GraalVM.
+
+---
+
 ## Usage
 Curl examples:
 

@@ -34,8 +34,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tomee.version>8.0.0-M1</tomee.version>
-    <version.microprofile>1.3</version.microprofile>
+    <tomee.version>8.0.0-M3</tomee.version>
+    <version.microprofile>2.0.1</version.microprofile>
     <version.shrinkwrap.resolver>2.0.0</version.shrinkwrap.resolver>
   </properties>
 
@@ -71,9 +71,24 @@
         <artifactId>tomee-maven-plugin</artifactId>
         <version>${tomee.version}</version>
         <configuration>
+          <config>${project.basedir}/src/main/tomee/</config>
+          <tomeeVersion>${tomee.version}</tomeeVersion>
           <tomeeClassifier>microprofile</tomeeClassifier>
           <tomeeHttpPort>8181</tomeeHttpPort>
-          <config>${project.basedir}/src/main/tomee/</config>
+          <libs>
+            <!-- upgrade geronimo opentracing -->
+            <lib>remove:geronimo-opentracing</lib>
+            <li>org.apache.geronimo:geronimo-opentracing-common:1.0.3-SNAPSHOT</li>
+            <li>org.apache.geronimo:geronimo-opentracing:1.0.3-SNAPSHOT</li>
+            <!-- upgrade geronimo openapi impl -->
+            <lib>remove:geronimo-openapi</lib>
+            <lib>remove:microprofile-openapi</lib>
+            <lib>org.apache.geronimo:geronimo-openapi-impl:1.0.10</lib>
+            <lib>org.eclipse.microprofile.openapi:microprofile-openapi-api:1.1.2</lib>
+          </libs>
+          <systemVariables>
+            <openejb.jaxrs.providers.auto>true</openejb.jaxrs.providers.auto>
+          </systemVariables>
           <synchronization>
             <updateOnlyExtensions>
               <updateOnlyExtension>.html</updateOnlyExtension>
@@ -150,7 +165,7 @@
     <dependency>
       <groupId>org.apache.tomee</groupId>
       <artifactId>javaee-api</artifactId>
-      <version>8.0-SNAPSHOT</version>
+      <version>8.0</version>
       <scope>provided</scope>
     </dependency>
 
@@ -185,6 +200,7 @@
       <groupId>org.apache.tomee</groupId>
       <artifactId>openejb-core</artifactId>
       <version>${tomee.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <!--

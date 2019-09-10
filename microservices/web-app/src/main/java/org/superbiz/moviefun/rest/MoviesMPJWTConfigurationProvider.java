@@ -16,7 +16,7 @@
  */
 package org.superbiz.moviefun.rest;
 
-import org.apache.tomee.microprofile.jwt.config.JWTAuthContextInfo;
+import org.apache.tomee.microprofile.jwt.config.JWTAuthConfiguration;
 import org.superbiz.moviefun.utils.TokenUtil;
 
 import javax.enterprise.context.Dependent;
@@ -28,15 +28,10 @@ import java.util.Optional;
 
 @Dependent
 public class MoviesMPJWTConfigurationProvider {
-
     public static final String ISSUED_BY = "/oauth2/token";
 
     @Produces
-    Optional<JWTAuthContextInfo> getOptionalContextInfo() throws Exception {
-        JWTAuthContextInfo contextInfo = new JWTAuthContextInfo();
-
-        // todo use MP Config to load the configuration
-        contextInfo.setIssuedBy(ISSUED_BY);
+    Optional<JWTAuthConfiguration> getOptionalContextInfo() throws Exception {
 
         byte[] encodedBytes = TokenUtil.readPublicKey("/publicKey.pem").getEncoded();
 
@@ -44,14 +39,13 @@ public class MoviesMPJWTConfigurationProvider {
         final KeyFactory kf = KeyFactory.getInstance("RSA");
         final RSAPublicKey pk = (RSAPublicKey) kf.generatePublic(spec);
 
-        contextInfo.setSignerKey(pk);
-        contextInfo.setExpGracePeriodSecs(10);
+        JWTAuthConfiguration contextInfo = JWTAuthConfiguration.authContextInfo(pk, ISSUED_BY);
 
         return Optional.of(contextInfo);
     }
 
     @Produces
-    JWTAuthContextInfo getContextInfo() throws Exception {
+    JWTAuthConfiguration getContextInfo() throws Exception {
         return getOptionalContextInfo().get();
     }
 }

@@ -1,5 +1,6 @@
 package org.superbiz.moviefun.rest;
 
+import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.superbiz.moviefun.Comment;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public interface CommentResourceClient {
     @GET
     @Path("{id}")
+    @Fallback(CouldNotLoadCommentsFallback.class)
     List<Comment> getComments(@PathParam("id") final String id);
 
     @POST
